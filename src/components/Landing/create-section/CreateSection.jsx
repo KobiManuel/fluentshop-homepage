@@ -6,19 +6,19 @@ import { Icon } from "@/components/Icon";
 
 const CreateSection = () => {
   return (
-    <section className="pt-[96px] px-10 flex flex-col items-center justify-center gap-16">
-      <div className="flex flex-col items-center gap-6 text-center font-gs w-1/2">
-        <h3 className="relative w-fit font-medium text-5xl text-fluentWhite">
+    <section className="max-[887px]:px-4 pt-[96px] max-[887px]:pt-16 px-10 flex flex-col items-center justify-center gap-16">
+      <div className=" flex flex-col items-center max-[887px]:gap-4 gap-6 text-center font-gs w-1/2 max-[887px]:w-full">
+        <h3 className="max-[887px]:text-3xl relative w-fit font-medium text-5xl text-fluentWhite">
           Create. Sell. Shine.
           <Icon.Sparkle className="absolute top-0 -right-8" />
           <Icon.Sparkle className="absolute top-0 -left-8" />
         </h3>
-        <p className="font-normal text-2xl text-light-grey-300">
+        <p className="max-[887px]:text-lg font-normal text-2xl text-light-grey-300">
           In a few minutes you can go from an idea to a live store.
         </p>
       </div>
-      <div className="flex gap-6 justify-between">
-        <div className="flex flex-col gap-6 w-[60%]">
+      <div className="flex max-[887px]:flex-col max-[887px]:gap-12  gap-6 justify-between">
+        <div className="flex flex-col gap-6 w-[60%] max-[887px]:w-full max-[887px]:gap-12">
           <div
             style={{
               backdropFilter: "blur(40px)",
@@ -45,10 +45,10 @@ const CreateSection = () => {
               }}
             />
             <div className="flex flex-col gap-3">
-              <h6 className="font-gs font-medium text-[30px] leading-[38px] text-fluentWhite">
+              <h6 className="font-gs font-medium text-[30px] max-[887px]:text-2xl leading-[38px] text-fluentWhite">
                 Your storefront, your spotlight!{" "}
               </h6>
-              <p className="font-gs font-normal text-[20px] leading-[30px] text-light-grey-300">
+              <p className="font-gs font-normal text-[20px] max-[887px]:text-base leading-[30px] text-light-grey-300">
                 Set up your shop in minutes. no fuss, no stress. Just you, your
                 products, and a sleek online store ready to roll!
               </p>
@@ -88,10 +88,10 @@ const CreateSection = () => {
             <Icon.AiIconBlack />
             <Icon.SoundWave />
             <div className="flex flex-col gap-3">
-              <h6 className="font-gs font-medium text-[30px] leading-[38px] text-fluentWhite">
+              <h6 className="font-gs font-medium text-[30px] max-[887px]:text-2xl leading-[38px] text-fluentWhite">
                 Our AI assistant, Irene, is always ready for you.
               </h6>
-              <p className="font-gs font-normal text-[20px] leading-[30px] text-light-grey-300">
+              <p className="font-gs font-normal text-[20px] max-[887px]:text-base leading-[30px] text-light-grey-300">
                 Stuck on what to say? Need content ideas? Fluent’s AI has your
                 back helping you market like a pro, anytime!
               </p>
@@ -113,7 +113,7 @@ const CreateSection = () => {
         rgba(17, 17, 17, 0.24)
       `,
           }}
-          className="p-10 w-[40%] rounded-[40px]  flex flex-col gap-8 items-center relative "
+          className="p-10 w-[40%] max-[887px]:w-full rounded-[40px]  flex flex-col gap-8 items-center relative "
         >
           <div
             className="absolute inset-0 rounded-[40px] pointer-events-none"
@@ -123,10 +123,10 @@ const CreateSection = () => {
             }}
           />
           <div className="flex flex-col gap-3">
-            <h6 className="font-gs font-medium text-[30px] leading-[38px] text-fluentWhite">
+            <h6 className="font-gs font-medium text-[30px] max-[887px]:text-2xl leading-[38px] text-fluentWhite">
               List & sell with ease!{" "}
             </h6>
-            <p className="font-gs font-normal text-[20px] leading-[30px] text-light-grey-300">
+            <p className="font-gs font-normal text-[20px] max-[887px]:text-base leading-[30px] text-light-grey-300">
               Add your products, customize your shop, and start selling. smooth,
               simple, and all yours!
             </p>

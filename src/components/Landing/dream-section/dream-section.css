@@ -1,0 +1,301 @@
+/* Container for the entire scroll-driven section */
+.dream-section-container {
+    height: 500vh; /* 5x viewport height for 5 steps */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Fixed viewport for the visible content */
+  .dream-section-viewport {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  
+  /* Main content wrapper */
+  .dream-section-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  /* Stepper animation container */
+  .stepper-scroll-container {
+    flex: 1;
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+  }
+  
+  /* Individual step slides */
+  .step-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .step-slide.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .step-slide.prev {
+    opacity: 0.3;
+    transform: translateY(-50px);
+  }
+  
+  .step-slide.next {
+    opacity: 0.3;
+    transform: translateY(50px);
+  }
+  
+  /* Banner/image container */
+  .banner-scroll-container {
+    width: 60%;
+    height: 750px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 40px;
+    backdrop-filter: blur(40px);
+    box-shadow: 
+      inset 1px 1px 0 0 rgba(254, 249, 255, 0.2),
+      inset -1px 0 0 0 rgba(254, 249, 255, 0.2);
+    background: 
+      radial-gradient(ellipse 50% 100% at bottom right, 
+        rgba(115, 58, 248, 0.2) 0%, 
+        transparent 100%
+      ),
+      rgba(17, 17, 17, 0.24);
+  }
+  
+  /* Banner overlay gradient */
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 40px;
+    pointer-events: none;
+    background: linear-gradient(-135deg, black 0%, transparent 30%, transparent 70%, black 100%);
+    z-index: 2;
+  }
+  
+  /* Banner slides */
+  .banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 40px;
+    opacity: 0;
+    transform: scale(0.9) translateX(100px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .banner-slide.active {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  
+  .banner-slide.prev {
+    opacity: 0;
+    transform: scale(0.95) translateX(-100px);
+  }
+  
+  .banner-slide.next {
+    opacity: 0;
+    transform: scale(0.95) translateX(100px);
+  }
+  
+  /* Banner text styling */
+  .banner-text {
+    font-family: 'GS', sans-serif;
+    font-weight: normal;
+    color: white;
+    font-size: 1.875rem;
+    text-align: center;
+    line-height: 1.4;
+    z-index: 3;
+    position: relative;
+  }
+  
+  /* Banner image styling */
+  .banner-image {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    z-index: 3;
+    position: relative;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+  }
+  
+  /* Progress indicator */
+  .scroll-progress {
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 10;
+  }
+  
+  .progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .progress-dot.active {
+    background: white;
+    transform: scale(1.2);
+  }
+  
+  /* Step icon styling */
+  .step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 16px;
+    transition: all 0.6s ease;
+  }
+  
+  .step-icon.active {
+    background: linear-gradient(225deg, #F9F7FD 0%, #C575F9 50%, #733AF8 100%);
+    border-color: transparent;
+    transform: scale(1.1);
+  }
+  
+  /* Step title styling */
+  .step-title {
+    font-family: 'GS', sans-serif;
+    font-weight: 500;
+    font-size: 1.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.6s ease;
+  }
+  
+  .step-title.active {
+    color: white;
+    transform: translateX(8px);
+  }
+  
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .dream-section-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .dream-section-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Animation keyframes for entrance effects */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Enhanced hover effects */
+  .step-slide:hover .step-icon {
+    transform: scale(1.05);
+  }
+  
+  .step-slide:hover .step-title {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 1024px) {
+    .dream-section-content {
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .banner-scroll-container {
+      width: 100%;
+      height: 500px;
+    }
+    
+    .stepper-scroll-container {
+      height: 400px;
+    }
+    
+    .scroll-progress {
+      right: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dream-section-content {
+      padding: 0 20px;
+    }
+    
+    .banner-text {
+      font-size: 1.5rem;
+    }
+    
+    .step-title {
+      font-size: 1.5rem;
+    }
+    
+    .banner-scroll-container {
+      height: 400px;
+    }
+    
+    .stepper-scroll-container {
+      height: 300px;
+    }
+  }

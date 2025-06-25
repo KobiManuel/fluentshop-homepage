@@ -1,5 +1,5 @@
 import StardustGlow from "@/components/StardustGlow/StardustGlow";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import banner from "@/../public/assets/images/hero-banner2.png";
 import mobileBanner from "@/../public/assets/images/hero-banner-mobile.png";
 
@@ -20,30 +20,29 @@ const InfiniteMarquee = ({ children }) => {
 };
 
 const Hero = () => {
-  let isMobileScreen = false;
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
-  if (typeof window !== "undefined") {
-    isMobileScreen = window.innerWidth < 887;
-  }
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobileScreen(window.innerWidth < 887);
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  console.log(isMobileScreen);
+
   return (
     <>
       <section
         className="relative h-fit min-h-screen bg-cover bg-center bg-no-repeat pt-[96px]"
-        //         style={{
-        //           backdropFilter: "blur(40px)",
-        //           boxShadow: `
-        //             inset 1px 1px 0 0 rgba(254, 249, 255, 0.2),
-        //             inset -1px 0 0 0 rgba(254, 249, 255, 0.2)
-        //           `,
-        //           background: `
-        //   radial-gradient(ellipse 50% 100% at center 80%,
-        //     rgba(115, 58, 248, 0.2) 40%,
-
-        //     transparent 100%
-        //   ),
-        //   rgba(17, 17, 17, 0.24)
-        // `,
-        //         }}
         style={{
           backgroundImage: "url('/assets/images/hero-linear_optimized.png')",
           backgroundPosition: isMobileScreen ? "center 200px" : "center top",
@@ -74,7 +73,7 @@ const Hero = () => {
         />
       </section>
       <section className="max-w-[1440px] max-[887px]:px-4 mx-auto relative py-[96px] max-[887px]:pt-16 px-10 flex flex-col items-center justify-center gap-16">
-        <Icon.ConcentricCircles className="max-[887px]:top-16 max-[887px]:translate-y-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:rotate-180 transition-transform" />
+        <Icon.ConcentricCircles className="max-[887px]:top-16 max-[887px]:translate-y-0 max-[437px]:w-[80%] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:rotate-180 transition-transform" />
         <div className="relative flex flex-col gap-6 text-center font-gs w-1/2 max-[887px]:w-full">
           <h3 className="max-[887px]:text-3xl relative font-medium text-5xl text-fluentWhite">
             Fluentshop is for creators, entrepreneurs, coaches, freelancers,

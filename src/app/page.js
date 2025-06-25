@@ -22,7 +22,7 @@ const Home = () => {
       <Navbar scrollToJoinWaitlist={scrollToJoinWaitlist} />
       <Hero />
 
-      <div className="max-w-[1440px] relative mx-auto">
+      <div className="max-w-[1440px] relative mx-auto overflow-x-hidden">
         <CreateSection />
         <GridSection />
         <DreamSection />

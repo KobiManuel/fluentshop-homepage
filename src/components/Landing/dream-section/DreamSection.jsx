@@ -419,12 +419,14 @@ const DreamSection = () => {
       className="py-[96px] max-[887px]:py-16 max-[887px]:px-4 px-10 flex flex-col items-center justify-center gap-16"
       ref={containerRef}
     >
-      <div className="flex flex-col items-center gap-6 text-center font-gs w-full">
-        <h3 className="font-medium text-5xl text-fluentWhite">Why Fluent?</h3>
-        <h3 className="relative w-fit font-medium text-5xl text-fluentWhite">
+      <div className="flex flex-col items-center gap-6 text-center font-gs w-full max-[887px]:gap-0">
+        <h3 className="font-medium text-5xl text-fluentWhite max-[887px]:text-3xl">
+          Why Fluent?
+        </h3>
+        <h3 className="relative w-fit font-medium text-5xl text-fluentWhite max-[887px]:text-3xl">
           You can dream it, we can build it.
-          <Icon.Sparkle className="absolute bottom-0 -right-10" />
-          <Icon.Sparkle className="absolute bottom-0 -left-10" />
+          <Icon.Sparkle className="absolute bottom-0 -right-10 max-[887px]:-right-4 max-[887px]:top-0" />
+          <Icon.Sparkle className="absolute bottom-0 -left-10 max-[887px]:-left-4 max-[887px]:top-0" />
         </h3>
       </div>
 

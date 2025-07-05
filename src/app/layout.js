@@ -12,7 +12,7 @@ const clashGrotesk = localFont({
 });
 
 export const metadata = {
-  title: "fluentshop.ai",
+  title: "fluentshop",
   description: "A creator powered marketplace for modern startup teams",
 };
 

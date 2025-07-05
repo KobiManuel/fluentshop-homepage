@@ -4,7 +4,7 @@ const Navbar = ({ scrollToJoinWaitlist }) => {
   return (
     <nav className="!max-w-[1440px] !mx-auto left-1/2 -translate-x-1/2  absolute z-10 h-[92px] w-full py-6 max-[887px]:px-4 px-10 flex items-center justify-between">
       <h6 className="max-[887px]:text-xl  text-white font-cg font-medium text-2xl">
-        fluentshop.ai
+        fluentshop
       </h6>
       <button
         onClick={scrollToJoinWaitlist}

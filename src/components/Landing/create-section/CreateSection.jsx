@@ -35,7 +35,7 @@ const CreateSection = () => {
     rgba(17, 17, 17, 0.24)
   `,
             }}
-            className="p-10 w-full rounded-[40px]  flex flex-col gap-8 items-center justify-center relative"
+            className="p-10 max-[887px]:px-4   w-full rounded-[40px]  flex flex-col gap-8 items-center justify-center relative"
           >
             <div
               className="absolute inset-0 rounded-[40px] pointer-events-none"
@@ -60,7 +60,7 @@ const CreateSection = () => {
             />
           </div>
           <div
-            className="p-10 w-full rounded-[40px] h-[428.65px] flex flex-col gap-8 items-center justify-center relative"
+            className="p-10 max-[887px]:px-4 w-full rounded-[40px] h-[428.65px] flex flex-col gap-8 items-center justify-center relative"
             style={{
               backdropFilter: "blur(40px)",
               boxShadow: `
@@ -86,7 +86,7 @@ const CreateSection = () => {
               }}
             />
             <Icon.AiIconBlack />
-            <Icon.SoundWave />
+            <Icon.SoundWave className={" max-[887px]:hidden"} />
             <div className="flex flex-col gap-3">
               <h6 className="font-gs font-medium text-[30px] max-[887px]:text-2xl leading-[38px] text-fluentWhite">
                 Our AI assistant, Irene, is always ready for you.
@@ -113,7 +113,7 @@ const CreateSection = () => {
         rgba(17, 17, 17, 0.24)
       `,
           }}
-          className="p-10 w-[40%] max-[887px]:w-full rounded-[40px]  flex flex-col gap-8 items-center relative "
+          className="p-10 max-[887px]:px-4 w-[40%] max-[887px]:w-full rounded-[40px]  flex flex-col gap-8 items-center relative "
         >
           <div
             className="absolute inset-0 rounded-[40px] pointer-events-none"

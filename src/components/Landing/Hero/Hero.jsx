@@ -55,7 +55,8 @@ const Hero = () => {
               Setup your Shop with AI.{" "}
             </h1>
             <h6 className="max-[887px]:text-lg text-center text-xl font-normal text-light-grey-100 ">
-              Create your store, add products and start selling in a few minutes
+              Generate your store, add products and start selling in a few
+              minutes
             </h6>
           </header>
           <Image

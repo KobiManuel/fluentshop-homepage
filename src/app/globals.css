@@ -19,6 +19,30 @@
   --color-dark-grey-300: #313132;
 }
 
+@layer utilities {
+  section::-webkit-scrollbar,
+  div::-webkit-scrollbar {
+    display: none;
+  }
+
+  section,
+  div {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #181818 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

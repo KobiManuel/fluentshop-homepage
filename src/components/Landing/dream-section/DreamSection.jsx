@@ -5,7 +5,6 @@ import banner2 from "@/../public/assets/images/dream-banner2.png";
 import banner3 from "@/../public/assets/images/dream-banner3.png";
 import banner4 from "@/../public/assets/images/dream-banner4.png";
 import banner5 from "@/../public/assets/images/dream-banner5.png";
-
 import Image from "next/image";
 
 const StepperItem = ({
@@ -33,10 +32,9 @@ const StepperItem = ({
       <div className="flex gap-3 items-center">
         <div
           style={isActive ? iconStyle : {}}
-          className="w-10 h-10 rounded-[12px] flex items-center justify-center border border-dark-grey-300 relative"
+          className=" shrink-0 w-10 h-10 rounded-[12px] flex items-center justify-center border border-dark-grey-300 relative"
         >
           <IconComponent className={isActive ? "*:stroke-fluentWhite" : ""} />
-          {/* Connector line positioned absolutely to center of icon */}
           {!isLast && (
             <div
               className="absolute top-[calc(100%+2px)] left-1/2 w-[2px] h-[41px] -translate-x-1/2"
@@ -73,7 +71,6 @@ const Stepper = ({ steps }) => {
   );
 };
 
-// Mobile Step Item Component
 const MobileStepItem = ({
   icon: IconComponent,
   title,
@@ -84,11 +81,10 @@ const MobileStepItem = ({
 }) => {
   return (
     <div className="flex flex-col gap-6">
-      {/* Step Title */}
       <div className="flex gap-3 items-center">
         <div
           style={isActive ? iconStyle : {}}
-          className="w-10 h-10 rounded-[12px] flex items-center justify-center border border-dark-grey-300"
+          className=" shrink-0 w-10 h-10 rounded-[12px] flex items-center justify-center border border-dark-grey-300"
         >
           <IconComponent className={isActive ? "*:stroke-fluentWhite" : ""} />
         </div>
@@ -100,8 +96,6 @@ const MobileStepItem = ({
           {title}
         </p>
       </div>
-
-      {/* Step Content Card */}
       <div
         style={{
           backdropFilter: "blur(40px)",
@@ -126,11 +120,9 @@ const MobileStepItem = ({
               "linear-gradient(-135deg, black 0%, transparent 30%, transparent 70%, black 100%)",
           }}
         />
-
         <h6 className="font-gs font-normal text-fluentWhite text-xl leading-[30px] text-center z-10">
           {text}
         </h6>
-
         <div className="relative w-full h-auto min-h-[200px]">
           <Image
             src={banner}
@@ -147,18 +139,16 @@ const DreamSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState({
-    step0: 100, // First step starts active
+    step0: 100,
     step1: 0,
     step2: 0,
     step3: 0,
     step4: 0,
   });
-
   const containerRef = useRef(null);
   const mobileContainerRef = useRef(null);
-  const { step0, step1, step2, step3, step4 } = progress;
+  const timerRef = useRef(null);
 
-  // Content data for each step
   const stepContent = [
     {
       text: "Need a hand? Our AI helps with everything from product ideas to content creation in seconds",
@@ -182,7 +172,6 @@ const DreamSection = () => {
     },
   ];
 
-  // Create steps array with current active state and same gradient for all active steps
   const steps = [
     {
       icon: Icon.VoiceCircle,
@@ -231,24 +220,47 @@ const DreamSection = () => {
     },
   ];
 
-  // Intersection Observer for visibility (Desktop)
+  // Intersection Observer for visibility (Desktop and Mobile)
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.9,
+      threshold: 0.6,
     };
 
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Only hide scrollbar on desktop
+          // Start timer for desktop animation
           if (window.innerWidth > 887) {
-            document.body.style.overflow = "hidden";
+            timerRef.current = setInterval(() => {
+              setCurrentStep((prev) => {
+                const nextStep = prev + 1;
+                if (nextStep >= steps.length) {
+                  clearInterval(timerRef.current);
+                  return prev;
+                }
+                setProgress((prevProgress) => ({
+                  ...prevProgress,
+                  [`step${nextStep}`]: 100,
+                }));
+                return nextStep;
+              });
+            }, 3000); // Change step every 3 seconds
           }
         } else {
           setIsVisible(false);
-          // Show scrollbar when component is out of view
-          document.body.style.overflow = "auto";
+          // Reset animation when section leaves view
+          setCurrentStep(0);
+          setProgress({
+            step0: 100,
+            step1: 0,
+            step2: 0,
+            step3: 0,
+            step4: 0,
+          });
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+          }
         }
       });
     };
@@ -266,6 +278,9 @@ const DreamSection = () => {
     return () => {
       if (target) {
         observer.unobserve(target);
+      }
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
   }, []);
@@ -303,117 +318,6 @@ const DreamSection = () => {
     };
   }, []);
 
-  // Control body overflow when visible and not all steps completed (Desktop only)
-  useEffect(() => {
-    const allStepsCompleted =
-      step0 >= 100 &&
-      step1 >= 100 &&
-      step2 >= 100 &&
-      step3 >= 100 &&
-      step4 >= 100;
-
-    if (window.innerWidth > 887) {
-      if (isVisible && !allStepsCompleted) {
-        document.body.style.overflow = "hidden";
-        document.documentElement.style.overflow = "hidden";
-      } else if (allStepsCompleted) {
-        document.body.style.overflow = "auto";
-        document.documentElement.style.overflow = "auto";
-      }
-    }
-  }, [isVisible, step0, step1, step2, step3, step4]);
-
-  // Debounce function
-  function debounce(func, wait, immediate) {
-    let timeout;
-    return function executedFunction() {
-      const context = this;
-      const args = arguments;
-
-      const later = function () {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-
-      const callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
-
-  // Scroll handling for step progression (Desktop only)
-  useEffect(() => {
-    if (window.innerWidth <= 887) return; // Skip scroll hijacking on mobile
-
-    let scrollCount = 0;
-
-    const handleScroll = (event) => {
-      const bodyOverflow = document.body.style.overflow;
-      if (bodyOverflow === "hidden") {
-        event.preventDefault();
-
-        scrollCount++;
-        console.log("Scroll count:", scrollCount);
-
-        if (scrollCount === 1) {
-          setProgress((prev) => ({ ...prev, step0: 100, step1: 100 }));
-          setCurrentStep(1);
-        }
-        if (scrollCount === 2) {
-          setProgress((prev) => ({ ...prev, step1: 100, step2: 100 }));
-          setCurrentStep(2);
-        }
-        if (scrollCount === 3) {
-          setProgress((prev) => ({ ...prev, step2: 100, step3: 100 }));
-          setCurrentStep(3);
-        }
-        if (scrollCount === 4) {
-          setProgress((prev) => ({ ...prev, step3: 100, step4: 100 }));
-          setCurrentStep(4);
-        }
-      }
-    };
-
-    const handleTouchMove = (event) => {
-      const bodyOverflow = document.body.style.overflow;
-      if (bodyOverflow === "hidden") {
-        event.preventDefault();
-
-        scrollCount++;
-        console.log("Touch scroll count:", scrollCount);
-
-        if (scrollCount === 1) {
-          setProgress((prev) => ({ ...prev, step0: 100, step1: 100 }));
-          setCurrentStep(1);
-        }
-        if (scrollCount === 2) {
-          setProgress((prev) => ({ ...prev, step1: 100, step2: 100 }));
-          setCurrentStep(2);
-        }
-        if (scrollCount === 3) {
-          setProgress((prev) => ({ ...prev, step2: 100, step3: 100 }));
-          setCurrentStep(3);
-        }
-        if (scrollCount === 4) {
-          setProgress((prev) => ({ ...prev, step3: 100, step4: 100 }));
-          setCurrentStep(4);
-        }
-      }
-    };
-
-    const debounceScroll = debounce(handleScroll, 200);
-    const debounceTouchMove = debounce(handleTouchMove, 200);
-
-    window.addEventListener("wheel", debounceScroll, { passive: false });
-    window.addEventListener("touchmove", debounceTouchMove, { passive: false });
-
-    return () => {
-      window.removeEventListener("wheel", debounceScroll);
-      window.removeEventListener("touchmove", debounceTouchMove);
-    };
-  }, []);
-
   return (
     <section
       className="py-[96px] max-[887px]:py-16 max-[887px]:px-4 px-10 flex flex-col items-center justify-center gap-16"
@@ -433,7 +337,6 @@ const DreamSection = () => {
       {/* Desktop Layout */}
       <div className="hidden max-[887px]:hidden min-[888px]:flex justify-between items-center w-full gap-10 min-h-screen max-h-screen">
         <Stepper steps={steps} />
-
         <div
           style={{
             backdropFilter: "blur(40px)",
@@ -458,14 +361,12 @@ const DreamSection = () => {
                 "linear-gradient(-135deg, black 0%, transparent 30%, transparent 70%, black 100%)",
             }}
           />
-
           <h6
             className="font-gs font-normal text-fluentWhite text-3xl text-center transition-all duration-500 ease-in-out z-10"
             key={currentStep}
           >
             {stepContent[currentStep].text}
           </h6>
-
           <div className="relative w-[70%] h-auto min-h-[321px]">
             {stepContent.map((content, index) => (
               <Image

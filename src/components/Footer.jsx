@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "./Icon";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -9,9 +10,12 @@ const Footer = () => {
           © 2025 fluentshop . All rights reserved
         </p>
         <div className="flex gap-3 items-center">
-          <button className="hover:opacity-50">
+          <Link
+            href={"https://www.instagram.com/tryfluentshop/"}
+            className="hover:opacity-50"
+          >
             <Icon.InstagramButton />
-          </button>
+          </Link>
           <button className="hover:opacity-50">
             <Icon.TwitterButton />
           </button>

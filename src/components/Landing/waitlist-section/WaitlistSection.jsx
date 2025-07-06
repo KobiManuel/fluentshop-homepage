@@ -17,6 +17,7 @@ const WaitlistSection = () => {
   const [toastType, setToastType] = useState("success");
   const [toastTitle, setToastTitle] = useState("");
   const [toastDescription, setToastDescription] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -73,6 +74,7 @@ const WaitlistSection = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await fetch("https://formspree.io/f/xgvybnky", {
         method: "POST",
@@ -103,6 +105,8 @@ const WaitlistSection = () => {
       setToastTitle("Error");
       setToastDescription("Something went wrong. Please try again.");
       setShowToast(true);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -157,12 +161,40 @@ const WaitlistSection = () => {
               name="email"
               className="flex-1 font-gs font-medium text-base max-[887px]:text-sm max-[887px]:placeholder:text-sm placeholder:text-lg text-fluentWhite placeholder:text-light-grey-300 bg-transparent outline-none border-0"
               placeholder="Email"
+              disabled={loading}
             />
             <button
+              type="submit"
               style={{ boxShadow: "0px 5px 40px 0px rgba(197, 117, 249, 0.5)" }}
-              className="max-[887px]:max-h-10 max-[887px]:text-sm max-[887px]:w-[120px]  bg-white rounded-[100px] py-[10px] px-[18px] font-gs text-base font-semibold text-black z-10"
+              className="max-[887px]:max-h-10 max-[887px]:text-sm w-[130.97px] max-[887px]:w-[120px]  bg-white rounded-[100px] py-[10px] px-[18px] font-gs text-base font-semibold text-black z-10 flex items-center justify-center gap-2"
+              disabled={loading}
             >
-              Join Waitlist
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin w-5 h-5 mr-2"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="black"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="black"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                </>
+              ) : (
+                "Join Waitlist"
+              )}
             </button>
           </form>
           <div className="flex items-center gap-3 w-fit mx-auto max-[887px]:flex-col">
